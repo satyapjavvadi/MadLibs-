@@ -17,7 +17,7 @@ namespace MadLibs
         Random rand = new Random();
 
         //Getters
-        public string getStrory()
+        public string getStory()
         {
             return story;
         }
@@ -105,7 +105,15 @@ namespace MadLibs
 
         public void setRandomNums()
         {
-
+            int num = Math.Abs(rand.Next()) % 100;
+            int index = 0;
+            int[] numberHolder = new int[3];
+            while(index < numberHolder.Length)
+            {
+                numberHolder[index] = num + index;
+                index++;
+            }
+            randomNums = "not" + numberHolder[0] + ", not" + numberHolder[1] + ", but" + numberHolder[2];
         }
 
         //Print instructions to player
@@ -158,11 +166,25 @@ namespace MadLibs
 
         public void putTogetherTheStroy()
         {
-            string story = "My family" + getName() + "went to Disney World last month!" + "we saw a" + getNoun1() +
-                "in a show at the Magic Kingdom and ate a" + getAdjective1()
-                + "feast for dinner. The next day we went" + getAdverb() + "to meet Mickey Mouse and his" + getNoun2()
-                + "and then that night I gazed at the" + getRandomNums() + " " + getAdjective2() + "fireworks shooting from the"
-                + getNoun3() + ".";
+            string story;
+            int num = Math.Abs(rand.Next()) % 2;
+            if (num == 0)
+            {
+                 story = "My family" + getName() + " went to Disney World last month!" + " we saw a " + getNoun1() +
+                    " in a show at the Magic Kingdom and ate a " + getAdjective1()
+                    + " feast for dinner. The next day we went " + getAdverb() + " to meet Mickey Mouse and his " + getNoun2()
+                    + " and then that night I gazed at the " + getRandomNums() + " " + getAdjective2() + " fireworks shooting from the "
+                    + getNoun3() + ".";
+            }
+            else
+            {
+                story = "Shreya and her family " + getName() + " went to zoo last summer, " +
+                    " They saw a huge " + getNoun1() + " and a tiny little " + getNoun2() + ". That night they decided to climb "
+                    + getAdverb() + " into the " + getNoun3() + " to get a closer look. The zoo was " + getAdjective1() + " at night, but"
+                    + " they didn't care..until " + getRandomNums() + " " + getAdjective2() + " apes yelled in their faces, making"
+                    + " Shreya and " + getName() + " sprint all the way back home.";
+
+            }
             setStory(story);
         }
 
@@ -174,13 +196,17 @@ namespace MadLibs
             enterAdjective2();
             enterNoun2();
             enterAdverb();
-            enterNoun3();             
+            enterNoun3();
+            setRandomNums();
+            putTogetherTheStroy();
+            Console.WriteLine(getStory());
         }
 
         static void Main(string[] args)
         {
             Program game = new Program();
             game.printInstructions();
+            game.play();
         }
     }
 }
